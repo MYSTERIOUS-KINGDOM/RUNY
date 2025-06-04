@@ -21,7 +21,7 @@
 
 <a-scene
   embedded
-  mindar-image="imageTargetSrc:targets.mind;autoStart:true;filterBeta:0.95;filterMinCF:0.00001"
+  mindar-image="imageTargetSrc:targets.mind;autoStart:true;filterBeta:0.95;filterMinCF:0.0000001"
   vr-mode-ui="enabled:false"
   device-orientation-permission-ui="enabled:true">
 
@@ -30,10 +30,8 @@
 </a-scene>
 
 <script>
-/* schowaj loader po starcie renderu */
 document.querySelector('a-scene').addEventListener('renderstart',()=>loader.remove());
 
-/* po wykryciu targetu #0 natychmiast otwórz stronę */
 const anchor=document.getElementById('anchor-link');
 anchor.addEventListener('targetFound',()=>{
   window.location.href='https://mysterious-kingdom.github.io/ODCZAROWANIE/';
