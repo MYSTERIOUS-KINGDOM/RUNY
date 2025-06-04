@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
-  <title>WebAR – ODCZAROWANIE (link)</title>
+  <title>WebAR – ODCZAROWANIE & UWIĘZIENIE</title>
 
   <script src="libs/aframe-v1.2.0.min.js"></script>
   <script src="libs/mindar-image.prod.js"></script>
@@ -26,16 +26,29 @@
   device-orientation-permission-ui="enabled:true">
 
   <a-camera mindar-image-camera look-controls="enabled:false"></a-camera>
-  <a-entity id="anchor-link" mindar-image-target="targetIndex:0"></a-entity>
+
+  <!-- targetIndex:0  → ODCZAROWANIE -->
+  <a-entity id="anchor-odcz" mindar-image-target="targetIndex:0"></a-entity>
+
+  <!-- targetIndex:1  → UWIĘZIENIE -->
+  <a-entity id="anchor-uwiez" mindar-image-target="targetIndex:1"></a-entity>
 </a-scene>
 
 <script>
+/* chowamy loader po starcie renderu */
 document.querySelector('a-scene').addEventListener('renderstart',()=>loader.remove());
 
-const anchor=document.getElementById('anchor-link');
-anchor.addEventListener('targetFound',()=>{
-  window.location.href='https://mysterious-kingdom.github.io/ODCZAROWANIE/';
-});
+/* target 0  →  link ODCZAROWANIE */
+document.getElementById('anchor-odcz')
+        .addEventListener('targetFound',()=>{
+          window.location.href='https://mysterious-kingdom.github.io/ODCZAROWANIE/';
+        });
+
+/* target 1  →  link UWIĘZIENIE */
+document.getElementById('anchor-uwiez')
+        .addEventListener('targetFound',()=>{
+          window.location.href='https://mysterious-kingdom.github.io/UWIEZIENIE/';
+        });
 </script>
 </body>
 </html>
