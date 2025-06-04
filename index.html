@@ -35,20 +35,32 @@
 </a-scene>
 
 <script>
-/* chowamy loader po starcie renderu */
-document.querySelector('a-scene').addEventListener('renderstart',()=>loader.remove());
+/* loader znika dopiero gdy MindAR naprawdę gotowy */
+document.querySelector('a-scene').addEventListener('arReady',()=>loader.remove());
 
-/* target 0  →  link ODCZAROWANIE */
+/* 1 wspólna funkcja – zwalnia kamerę, czeka 150 ms, przekierowuje */
+function safeRedirect(url){
+  const scene = document.querySelector('a-scene');
+  const mind  = scene.components['mindar-image'];
+  if(mind?.controller){
+    mind.controller.stop();
+    mind.controller.video?.srcObject?.getTracks().forEach(t => t.stop());
+  }
+  /* krótka pauza pozwala systemowi zamknąć kamerę */
+  setTimeout(()=>location.replace(url),150);
+}
+
+/* target 0 → ODCZAROWANIE (jednorazowo) */
 document.getElementById('anchor-odcz')
         .addEventListener('targetFound',()=>{
-          window.location.href='https://mysterious-kingdom.github.io/ODCZAROWANIE/';
-        });
+           safeRedirect('https://mysterious-kingdom.github.io/ODCZAROWANIE/');
+        },{once:true});
 
-/* target 1  →  link UWIĘZIENIE */
+/* target 1 → UWIĘZIENIE (jednorazowo) */
 document.getElementById('anchor-uwiez')
         .addEventListener('targetFound',()=>{
-          window.location.href='https://mysterious-kingdom.github.io/UWIEZIENIE/';
-        });
+           safeRedirect('https://mysterious-kingdom.github.io/UWIEZIENIE/');
+        },{once:true});
 </script>
 </body>
 </html>
